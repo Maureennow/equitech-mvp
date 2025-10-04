@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Module 2 - EquiTech</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav>
+      <a href="index.html">Dashboard</a> | <a href="module1.html">Module 1</a> |
+      <a href="module2.html">Module 2</a> |
+      <a href="module3.html">Module 3</a>
+    </nav>
+
+    <h1>Module 2 Quiz</h1>
+
+    <label for="student-select">Student:</label>
+    <select id="student-select"></select>
+
+    <form id="quiz-form">
+      <p>1. What does CSS stand for?</p>
+      <label
+        ><input type="radio" name="q1" value="100" /> Cascading Style
+        Sheets</label
+      ><br />
+      <label
+        ><input type="radio" name="q1" value="0" /> Computer Style Syntax</label
+      ><br />
+
+      <p>2. How do you change text color in CSS?</p>
+      <label><input type="radio" name="q2" value="100" /> color property</label
+      ><br />
+      <label><input type="radio" name="q2" value="0" /> font property</label
+      ><br />
+
+      <p>3. Which selector selects by ID?</p>
+      <label><input type="radio" name="q3" value="100" /> #id</label><br />
+      <label><input type="radio" name="q3" value="0" /> .class</label
+      ><br /><br />
+
+      <button type="button" id="submit-btn">Submit Quiz</button>
+    </form>
+
+    <script>
+      const studentSelect = document.getElementById("student-select");
+      const submitBtn = document.getElementById("submit-btn");
+      const form = document.getElementById("quiz-form");
+
+      // Populate dropdown dynamically
+      function populateStudentDropdown() {
+        const students = JSON.parse(localStorage.getItem("students")) || [];
+        studentSelect.innerHTML = "";
+        students.forEach((student, index) => {
+          const option = document.createElement("option");
+          option.value = index;
+          option.textContent = student.name;
+          studentSelect.appendChild(option);
+        });
+      }
+
+      // Save quiz score
+      submitBtn.addEventListener("click", () => {
+        const studentIndex = parseInt(studentSelect.value);
+        const students = JSON.parse(localStorage.getItem("students")) || [];
+        let score = 0;
+
+        ["q1", "q2", "q3"].forEach((q) => {
+          const selected = form.querySelector(`input[name="${q}"]:checked`);
+          if (selected) score += parseInt(selected.value);
+        });
+
+        if (!students[studentIndex]) {
+          students[studentIndex] = { name: "Unknown", modulesCompleted: [] };
+        }
+
+        // Module 2 = index 1
+        students[studentIndex].modulesCompleted[1] = score;
+        localStorage.setItem("students", JSON.stringify(students));
+        alert(
+          `Score saved! Student scored ${score}% on Module 2. Refresh dashboard to see updates.`
+        );
+      });
+
+      populateStudentDropdown();
+    </script>
+  </body>
+</html>

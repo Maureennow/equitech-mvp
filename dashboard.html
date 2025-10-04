@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EquiTech Learning Hub - Teacher Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f8f9fa;
+      }
+
+      nav a {
+        margin-right: 15px;
+        text-decoration: none;
+        color: #007bff;
+      }
+
+      nav a:hover {
+        text-decoration: underline;
+      }
+
+      h1 {
+        color: #333;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: #fff;
+      }
+
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: center;
+      }
+
+      th {
+        background-color: #007bff;
+        color: white;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      #analytics-summary {
+        margin-top: 20px;
+        font-size: 16px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="index.html">Dashboard</a> | <a href="module1.html">Module 1</a> |
+      <a href="module2.html">Module 2</a> |
+      <a href="module3.html">Module 3</a>
+    </nav>
+
+    <h1>Teacher Dashboard</h1>
+
+    <table id="progress-table">
+      <thead>
+        <tr>
+          <th>Student</th>
+          <th>Module 1</th>
+          <th>Module 2</th>
+          <th>Module 3</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Student rows will populate dynamically -->
+      </tbody>
+    </table>
+
+    <div id="analytics-summary">Analytics will appear here</div>
+
+    <script src="dashboard.js"></script>
+  </body>
+</html>

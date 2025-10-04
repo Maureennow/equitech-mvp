@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Module 1 - EquiTech</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav>
+      <a href="index.html">Dashboard</a> | <a href="module1.html">Module 1</a> |
+      <a href="module2.html">Module 2</a> |
+      <a href="module3.html">Module 3</a>
+    </nav>
+
+    <h1>Module 1 Quiz</h1>
+
+    <label for="student-select">Student:</label>
+    <select id="student-select"></select>
+
+    <form id="quiz-form">
+      <p>1. What is HTML used for?</p>
+      <label><input type="radio" name="q1" value="0" /> Styling pages</label
+      ><br />
+      <label
+        ><input type="radio" name="q1" value="100" /> Structuring pages</label
+      ><br />
+
+      <p>2. Which tag is used for a paragraph?</p>
+      <label><input type="radio" name="q2" value="0" /> &lt;div&gt;</label
+      ><br />
+      <label><input type="radio" name="q2" value="100" /> &lt;p&gt;</label
+      ><br />
+
+      <p>3. Which tag creates a link?</p>
+      <label><input type="radio" name="q3" value="0" /> &lt;img&gt;</label
+      ><br />
+      <label><input type="radio" name="q3" value="100" /> &lt;a&gt;</label
+      ><br /><br />
+
+      <button type="button" id="submit-btn">Submit Quiz</button>
+    </form>
+
+    <script>
+      // Get references
+      const studentSelect = document.getElementById("student-select");
+      const submitBtn = document.getElementById("submit-btn");
+      const form = document.getElementById("quiz-form");
+
+      // Populate the dropdown dynamically
+      function populateStudentDropdown() {
+        const students = JSON.parse(localStorage.getItem("students")) || [];
+        studentSelect.innerHTML = ""; // clear existing options
+        students.forEach((student, index) => {
+          const option = document.createElement("option");
+          option.value = index;
+          option.textContent = student.name;
+          studentSelect.appendChild(option);
+        });
+      }
+
+      // Save quiz score
+      submitBtn.addEventListener("click", () => {
+        const studentIndex = parseInt(studentSelect.value);
+        const students = JSON.parse(localStorage.getItem("students")) || [];
+
+        // Calculate quiz score
+        const answers = ["q1", "q2", "q3"];
+        let score = 0;
+        answers.forEach((q) => {
+          const selected = form.querySelector(`input[name="${q}"]:checked`);
+          if (selected) score += parseInt(selected.value);
+        });
+
+        // Save score to the correct module (Module 1 = index 0)
+        if (!students[studentIndex]) {
+          students[studentIndex] = { name: "Unknown", modulesCompleted: [] };
+        }
+        students[studentIndex].modulesCompleted[0] = score;
+
+        localStorage.setItem("students", JSON.stringify(students));
+        alert(
+          `Score saved! Student scored ${score}% on Module 1. Refresh dashboard to see updates.`
+        );
+      });
+
+      // Initial population of dropdown
+      populateStudentDropdown();
+    </script>
+  </body>
+</html>
