@@ -1,5 +1,3 @@
-EquiTech Learning Hub MVP
-
 EquiTech Learning Hub is a demo platform designed to empower teachers to integrate inclusive, technology-based learning into their classrooms. This MVP showcases a teacher dashboard, interactive modules, and simple quizzes that track student progress and module completion.
 
 Features
